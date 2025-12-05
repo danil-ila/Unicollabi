@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Unicollabi - Главная</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0a0015 0%, #1a0033 50%, #2d0a4e 100%);
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+  
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #8a2be2, #da70d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: #8a2be2;
+    }
+
+    .hero-section {
+      position: relative;
+      z-index: 10;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(138, 43, 226, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(218, 112, 214, 0.6);
+      box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #8a2be2, #da70d6);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .stat-card {
+      background: rgba(138, 43, 226, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(138, 43, 226, 0.4);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      background: rgba(138, 43, 226, 0.25);
+      transform: scale(1.05);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #8a2be2, #da70d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-button {
+      background: linear-gradient(90deg, #8a2be2, #da70d6);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .cta-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(138, 43, 226, 0.6);
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(90deg, #8a2be2, #da70d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(138, 43, 226, 0.3);
+    }
+
+    .mission-box {
+      background: rgba(138, 43, 226, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(138, 43, 226, 0.3);
+      border-radius: 25px;
+      padding: 3rem;
+      margin: 3rem auto;
+      max-width: 900px;
+      position: relative;
+    }
+
+    .mission-box::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #8a2be2, #da70d6, #8a2be2);
+      border-radius: 25px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .mission-box:hover::after {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        min-height: 70vh;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars" id="stars"></div>
+
+<header class="unicolab-header fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent backdrop-blur-xl border-b border-purple-800/40 shadow-[0_0_35px_rgba(138,43,226,0.35)]">
+  <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+
+    <a href="uni-main.html">
+      <div class="text-white text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">
+        Unicollabi
+      </div>
+    </a>
+
+    <div class="relative group flex items-center gap-4 lg:hidden">
+      <input type="checkbox" id="menu-toggle" class="peer hidden" />
+      <label for="menu-toggle" class="flex flex-col gap-1 cursor-pointer z-50">
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+      </label>
+
+      <div class="absolute left-0 top-full invisible opacity-0 peer-checked:visible peer-checked:opacity-100 transition-all duration-300
+                  bg-gradient-to-br from-[#0f0f2e] to-[#240042] backdrop-blur-xl shadow-xl rounded-xl
+                  border border-purple-700/40 text-white py-3 w-52 z-40 mt-2 overflow-hidden">
+
+        <a href="uni-main.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Главная</a>
+        <a href="uni-map.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Университеты</a>
+        <a href="ai-chat.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">AI-ассистент</a>
+      </div>
+    </div>
+
+    <nav class="hidden lg:flex items-center gap-10 text-white text-sm font-medium">
+      <a href="uni-main.html" class="hover:text-purple-300 transition">Главная</a>
+      <a href="uni-map.html" class="hover:text-purple-300 transition">Университеты</a>
+      <a href="ai-chat.html" class="hover:text-purple-300 transition">AI-ассистент</a>
+    </nav>
+  </div>
+</header>
+
+
+  <section class="hero-section">
+    <div class="max-w-6xl mx-auto text-center">
+      <h1 class="text-5xl md:text-7xl font-black mb-6 gradient-text" style="font-family: 'Orbitron', sans-serif;">
+        Unicollabi
+      </h1>
+      <p class="text-xl md:text-2xl text-purple-200 mb-4 font-light">
+        Твой умный навигатор в мире университетов 🌌
+      </p>
+      <p class="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">
+        Искусственный интеллект и интерактивные карты помогут тебе найти идеальный университет для твоего будущего
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="uni-map.html" class="cta-button">
+          <span style="position: relative; z-index: 1;">🗺️ Открыть карту</span>
+        </a>
+        <a href="ai-chat.html" class="cta-button" style="background: linear-gradient(90deg, #da70d6, #8a2be2);">
+          <span style="position: relative; z-index: 1;">🤖 Спросить AI</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 py-16 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="stat-card">
+          <div class="stat-number">150+</div>
+          <p class="text-purple-200 text-lg font-semibold mt-2">Университетов</p>
+          <p class="text-gray-400 text-sm mt-1">По всему Казахстану</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <p class="text-purple-200 text-lg font-semibold mt-2">Специальностей</p>
+          <p class="text-gray-400 text-sm mt-1">Для твоего выбора</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <p class="text-purple-200 text-lg font-semibold mt-2">AI Поддержка</p>
+          <p class="text-gray-400 text-sm mt-1">Всегда на связи</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title">Наша миссия 🎯</h2>
+      <div class="mission-box">
+        <p class="text-xl text-purple-100 leading-relaxed mb-6 text-center">
+          Мы создали <span class="font-bold gradient-text">Uncollabi</span>, чтобы каждый абитуриент мог легко и быстро найти университет своей мечты.
+        </p>
+        <p class="text-lg text-gray-300 leading-relaxed text-center">
+          Наша цель — сделать процесс выбора университета простым, понятным и интересным. Мы верим, что правильный выбор образования — это первый шаг к успешному будущему, и мы здесь, чтобы помочь тебе сделать этот шаг уверенно! 🚀
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title">Почему Uncollabi? ✨</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">Интерактивная карта</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Визуализируй все университеты Казахстана на одной карте. Выбирай по региону, фильтруй по специальностям — всё в несколько кликов!
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">AI-ассистент</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Наш умный ИИ ответит на любые вопросы о университетах, специальностях, поступлении и стипендиях. Работает 24/7!
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">Полная информация</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Актуальные данные о каждом университете: специальности, программы, контакты, грантовые места и многое другое.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">Умный поиск</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Фильтруй университеты по программам обучения, направлениям, городам и регионам. Найди именно то, что тебе нужно!
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">Адаптивный дизайн</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Пользуйся сервисом с любого устройства — компьютера, планшета или смартфона. Всегда удобно и красиво!
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="text-2xl font-bold text-purple-200 mb-3">Быстрота и простота</h3>
+          <p class="text-gray-300 leading-relaxed">
+            Интуитивный интерфейс, быстрая загрузка и простая навигация. Никаких сложностей — только результат!
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 py-16 px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="section-title">Как это работает? 🛠️</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="text-center">
+          <div class="text-6xl mb-4">1️⃣</div>
+          <h3 class="text-xl font-bold text-purple-200 mb-3">Открой карту</h3>
+          <p class="text-gray-300">Изучи все университеты на интерактивной карте Казахстана</p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-6xl mb-4">2️⃣</div>
+          <h3 class="text-xl font-bold text-purple-200 mb-3">Выбери фильтры</h3>
+          <p class="text-gray-300">Отфильтруй по программе, направлению и региону</p>
+        </div>
+
+        <div class="text-center">
+          <div class="text-6xl mb-4">3️⃣</div>
+          <h3 class="text-xl font-bold text-purple-200 mb-3">Получи информацию</h3>
+          <p class="text-gray-300">Читай подробности о каждом университете и задавай вопросы AI</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" style="font-family: 'Orbitron', sans-serif;">
+        Готов найти свой университет? 🎓
+      </h2>
+      <p class="text-xl text-purple-200 mb-8">
+        Начни свой путь к будущему прямо сейчас!
+      </p>
+      <a href="uni-map.html" class="cta-button text-xl px-8 py-4">
+        <span style="position: relative; z-index: 1;">Начать поиск 🚀</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="py-12 mt-20 relative z-10 bg-black/40 backdrop-blur-xl border-t border-purple-500/40 text-white !text-white">
+  <div class="max-w-7xl mx-auto px-6 text-white !text-white">
+
+    <div class="text-center mb-10 text-white !text-white">
+      <h4 class="text-3xl font-bold text-white !text-white" style="font-family: 'Orbitron', sans-serif;">
+        Uncollabi
+      </h4>
+      <p class="text-white !text-white text-lg mt-2">Твой навигатор в мире университетов 🌌</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left text-white !text-white">
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Contact Us</h5>
+        <ul class="space-y-2 text-white !text-white text-sm">
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-telephone text-white !text-white"></i> +7 (707) 607-33-25
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-envelope text-white !text-white"></i> thenewera@gmail.com
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-geo-alt text-white !text-white"></i> Kazakhstan, Almaty
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">About Us</h5>
+        <p class="text-white !text-white text-sm leading-relaxed">
+          Uncollabi — образовательная экосистема, которая помогает абитуриентам находить подходящие университеты с помощью карты, аналитики и искусственного интеллекта.
+        </p>
+      </div>
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Socials</h5>
+        <div class="flex gap-4 justify-center md:justify-start text-3xl text-white !text-white">
+          <a href="#" class="bi bi-instagram text-white !text-white hover:opacity-70 transition"></a>
+          <a href="#" class="bi bi-telegram text-white !text-white hover:opacity-70 transition"></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10 pt-6 border-t border-purple-900/40 text-white !text-white">
+      <p class="text-white !text-white text-sm">© 2025 Uncollabi. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

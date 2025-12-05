@@ -1,127 +1,1003 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <title>The NEW ERA</title>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Uncollabi - AI Ассистент</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Exo 2', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0e27;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      cursor: none;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s infinite ease-in-out;
+      transform-origin: center;
+      box-shadow: 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    .star.small {
+      width: 1px;
+      height: 1px;
+    }
+
+    .star.medium {
+      width: 2px;
+      height: 2px;
+    }
+
+    .star.large {
+      width: 3px;
+      height: 3px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.6); }
+    }
+
+    .stars-deep {
+      z-index: 0;
+    }
+
+    .stars-front {
+      z-index: 1;
+    }
+
+    .bg-overlay {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,0,21,0.12), rgba(30,10,60,0.12));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .walle-track {
+      position: fixed;
+      width: 20px;
+      height: 8px;
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(218, 112, 214, 0.6));
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 9;
+      animation: fade-track 1.5s ease-out forwards;
+      box-shadow: 
+        0 0 15px rgba(138, 43, 226, 0.6),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      transform: translate(-50%, -50%);
+    }
+
+    .walle-track::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 2px;
+      background: rgba(218, 112, 214, 0.8);
+      box-shadow: 0 0 5px rgba(218, 112, 214, 0.8);
+      border-radius: 1px;
+    }
+
+    @keyframes fade-track {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+      }
+    }
+
+    .walle-cursor {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-20px, -20px);
+      transition: transform 0.15s ease;
+    }
+
+    .walle-body {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      border-radius: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.8),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(218, 112, 214, 0.6);
+      overflow: hidden;
+    }
+
+    .walle-eye {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      top: 30%;
+      box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.2),
+        0 0 10px rgba(138, 43, 226, 0.5);
+    }
+
+    .walle-eye::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: radial-gradient(circle, #000 40%, #333 100%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: inset -1px -1px 2px rgba(255,255,255,0.5);
+    }
+
+    .eye-left {
+      left: 8px;
+    }
+
+    .eye-right {
+      right: 8px;
+    }
+
+    .walle-smile {
+      position: absolute;
+      width: 16px;
+      height: 6px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 0 0 8px 8px;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 4px rgba(138, 43, 226, 0.4);
+    }
+
+    .glass-effect {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 0 40px rgba(138, 43, 226, 0.3);
+    }
+
+    .gradient-text {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #8a2be2, #da70d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: #8a2be2;
+      font-weight: 800;
+    }
+
+    #walle-container {
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .walle-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.4), transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 3s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .walle-robot {
+      position: relative;
+      width: 200px;
+      height: 250px;
+    }
+
+    .walle-head {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 120px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      border-radius: 30px 30px 20px 20px;
+      box-shadow: 
+        0 0 30px rgba(138, 43, 226, 0.8),
+        inset 0 4px 8px rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(218, 112, 214, 0.6);
+      z-index: 3;
+    }
+
+    .walle-eyes {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    .walle-eye-large {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 
+        inset 0 4px 8px rgba(0,0,0,0.2),
+        0 0 20px rgba(138, 43, 226, 0.6);
+      border: 3px solid rgba(75, 0, 130, 0.6);
+    }
+
+    .walle-eye-large::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #000 40%, #333 100%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        inset -2px -2px 4px rgba(255,255,255,0.5),
+        0 0 10px rgba(138, 43, 226, 0.8);
+    }
+
+    .walle-body-large {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 130px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      border-radius: 20px;
+      box-shadow: 
+        0 0 30px rgba(138, 43, 226, 0.8),
+        inset 0 4px 8px rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(218, 112, 214, 0.6);
+      z-index: 2;
+    }
+
+    .walle-tracks {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 40px;
+    }
+
+    .walle-track-large {
+      width: 60px;
+      height: 40px;
+      background: linear-gradient(135deg, #4b0082, #8a2be2);
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(218, 112, 214, 0.6);
+    }
+
+    .walle-track-large::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 4px;
+      background: linear-gradient(90deg, #da70d6, #8a2be2);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(218, 112, 214, 0.8);
+    }
+
+    .walle-antenna {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 30px;
+      background: linear-gradient(180deg, #8a2be2, #da70d6);
+      border-radius: 2px;
+    }
+
+    .walle-antenna::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle, #da70d6, #8a2be2);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(218, 112, 214, 0.8);
+    }
+
+    .message-bot {
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      color: white;
+      border-radius: 20px 20px 20px 5px;
+      padding: 14px 20px;
+      max-width: 80%;
+      animation: slideInLeft 0.4s ease;
+      box-shadow: 0 4px 20px rgba(138, 43, 226, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message-bot::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 50%);
+      animation: shimmer 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .message-user {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(51, 65, 85, 0.9));
+      color: #ffffff;
+      border-radius: 20px 20px 5px 20px;
+      padding: 14px 20px;
+      max-width: 80%;
+      margin-left: auto;
+      animation: slideInRight 0.4s ease;
+      border: 1px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    #chat-box::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    #chat-box::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 10px;
+    }
+
+    #chat-box::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #8a2be2, #4b0082);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(138, 43, 226, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .send-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .send-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 30px rgba(138, 43, 226, 0.8);
+    }
+
+    .send-btn:active {
+      transform: scale(0.95);
+    }
+
+    #user-input {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid rgba(138, 43, 226, 0.3);
+      color: #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    #user-input::placeholder {
+      color: rgba(167, 139, 250, 0.6);
+    }
+
+    #user-input:focus {
+      outline: none;
+      border: 2px solid #8a2be2;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+      background: rgba(30, 41, 59, 0.95);
+    }
+
+    .typing-indicator {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .typing-indicator span {
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-12px); }
+    }
+
+    .quick-btn {
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .quick-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .quick-btn:hover::before {
+      left: 100%;
+    }
+
+    .quick-btn:hover {
+      background: linear-gradient(135deg, rgba(138, 43, 226, 0.6), rgba(75, 0, 130, 0.6));
+      border-color: rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .chat-container {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 
+        0 0 60px rgba(138, 43, 226, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .chat-container:hover {
+      border-color: rgba(138, 43, 226, 0.7);
+      box-shadow: 
+        0 0 80px rgba(138, 43, 226, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98)) !important;
+      backdrop-filter: blur(15px);
+      border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+      box-shadow: 0 4px 20px rgba(138, 43, 226, 0.3);
+    }
+
+    header a {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    header a:hover {
+      color: #da70d6 !important;
+      text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-top: 2px solid rgba(138, 43, 226, 0.3);
+    }
+
+    #menu-toggle:checked ~ label span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked ~ label span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ label span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+  </style>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
-<!-- HEADER -->
-<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+  <div class="stars stars-deep" id="starsDeep"></div>
+  <div class="stars stars-front" id="starsFront"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <div class="walle-cursor" id="walleCursor">
+    <div class="walle-body">
+      <div class="walle-eye eye-left"></div>
+      <div class="walle-eye eye-right"></div>
+      <div class="walle-smile"></div>
+    </div>
+  </div>
+
+<header class="unicolab-header fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent backdrop-blur-xl border-b border-purple-800/40 shadow-[0_0_35px_rgba(138,43,226,0.35)]">
   <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-    <a href="uni-map.html"><div>UNICO-LAB</div></a>
 
-    <nav class="hidden lg:flex gap-6 text-sm font-medium">
-      <a href="uni-map.html" class="hover:text-purple-500">КАРТА</a>
-      <a href="ai-chat.html" class="hover:text-purple-500 text-purple-600">ПОДДЕРЖКА</a>
+    <a href="uni-main.html">
+      <div class="text-white text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">
+        Uncollabi
+      </div>
+    </a>
+
+    <div class="relative group flex items-center gap-4 lg:hidden">
+      <input type="checkbox" id="menu-toggle" class="peer hidden" />
+      <label for="menu-toggle" class="flex flex-col gap-1 cursor-pointer z-50">
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+      </label>
+
+      <div class="absolute left-0 top-full invisible opacity-0 peer-checked:visible peer-checked:opacity-100 transition-all duration-300
+                  bg-gradient-to-br from-[#0f0f2e] to-[#240042] backdrop-blur-xl shadow-xl rounded-xl
+                  border border-purple-700/40 text-white py-3 w-52 z-40 mt-2 overflow-hidden">
+
+        <a href="uni-main.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Главная</a>
+        <a href="uni-map.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Университеты</a>
+        <a href="ai-chat.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">AI-ассистент</a>
+      </div>
+    </div>
+
+    <nav class="hidden lg:flex items-center gap-10 text-white text-sm font-medium">
+      <a href="uni-main.html" class="hover:text-purple-300 transition">Главная</a>
+      <a href="uni-map.html" class="hover:text-purple-300 transition">Университеты</a>
+      <a href="ai-chat.html" class="hover:text-purple-300 transition">AI-ассистент</a>
     </nav>
   </div>
 </header>
 
-<!-- BODY -->
-<div class="pt-28 flex flex-col items-center">
+  <div class="pt-24 pb-12 px-4 min-h-screen flex flex-col items-center justify-center relative z-10">
+    
+    <div class="max-w-4xl w-full">
+      
+      <div id="walle-container" class="flex justify-center mb-8">
+        <div class="relative">
+          <div class="walle-glow"></div>
+          
+          <div class="walle-robot">
+            <div class="walle-antenna"></div>
+            
+            <div class="walle-head">
+              <div class="walle-eyes">
+                <div class="walle-eye-large"></div>
+                <div class="walle-eye-large"></div>
+              </div>
+            </div>
+            
+            <div class="walle-body-large"></div>
+            
+            <div class="walle-tracks">
+              <div class="walle-track-large"></div>
+              <div class="walle-track-large"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <!-- WALL-E BOT -->
-  <div id="bot" class="relative w-48 h-48 mb-6 select-none">
-    <img src="C:\Users\karau\.vscode\Unicollabi\Wallii.png" class="w-full h-full absolute" />
+      <div class="text-center mb-8">
+        <h1 class="text-5xl font-bold text-white mb-4" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8);">
+          Привет! Я Валли 🤖
+        </h1>
+        <p class="text-purple-200 text-xl">
+          Твой космический помощник в выборе университета 🚀
+        </p>
+      </div>
 
-    <!-- EYES -->
-    <div class="absolute top-8 left-12 flex gap-4">
-      <div id="eye-left" class="w-6 h-6 bg-white rounded-full border border-black"></div>
-      <div id="eye-right" class="w-6 h-6 bg-white rounded-full border border-black"></div>
+      <div class="chat-container rounded-3xl shadow-2xl overflow-hidden">
+        
+        <div id="chat-box" class="h-96 overflow-y-auto p-6 space-y-4">
+          <div class="flex">
+            <div class="message-bot">
+              <div class="font-semibold mb-1" style="font-family: 'Orbitron', sans-serif;">🤖 Валли</div>
+              <div>Привет! Я твой ассистент-бот. Я помогу найти самый подходящий вуз специально для тебя 🎓 Просто напиши свой вопрос!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 bg-black bg-opacity-30 border-t-2 border-purple-900">
+          <div class="flex gap-3">
+            <input 
+              id="user-input"
+              type="text"
+              placeholder="Например: сравни SDU и AITU..."
+              class="flex-1 px-6 py-4 rounded-2xl transition-all"
+              onkeypress="if(event.key === 'Enter') sendMsg()"
+            />
+            <button 
+              onclick="sendMsg()"
+              class="send-btn px-8 py-4 text-white rounded-2xl font-semibold relative z-10"
+            >
+              Отправить
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3 justify-center">
+        <button onclick="quickQuestion('Какие есть IT университеты?')" 
+          class="quick-btn px-5 py-3 text-white rounded-full text-sm font-medium">
+          💻 IT университеты
+        </button>
+        <button onclick="quickQuestion('Сравни SDU и AITU')" 
+          class="quick-btn px-5 py-3 text-white rounded-full text-sm font-medium">
+          📊 Сравнить вузы
+        </button>
+        <button onclick="quickQuestion('Какая стоимость обучения?')" 
+          class="quick-btn px-5 py-3 text-white rounded-full text-sm font-medium">
+          💰 Стоимость
+        </button>
+      </div>
+
     </div>
   </div>
 
-  <!-- CHAT BOX -->
-  <div id="chat-box"
-    class="w-full max-w-lg h-[420px] overflow-y-auto p-4 border rounded-xl shadow-md bg-white">
-    <div class="text-gray-600 text-left">
-      🤖: Привет! Я твой ассистент-бот.  
-      Я помогу найти самый подходящий вуз специально для тебя 🎓  
-      Просто напиши свой вопрос!
+ <footer class="py-12 mt-20 relative z-10 bg-black/40 backdrop-blur-xl border-t border-purple-500/40 text-white !text-white">
+  <div class="max-w-7xl mx-auto px-6 text-white !text-white">
+
+    <div class="text-center mb-10 text-white !text-white">
+      <h4 class="text-3xl font-bold text-white !text-white" style="font-family: 'Orbitron', sans-serif;">
+        Uncollabi
+      </h4>
+      <p class="text-white !text-white text-lg mt-2">Твой навигатор в мире университетов 🌌</p>
     </div>
-  </div>
 
-  <!-- INPUT -->
-  <div class="w-full max-w-lg mt-4 flex gap-2">
-    <input id="user-input"
-      type="text"
-      placeholder="Например: сравни SDU и AITU"
-      class="flex-1 border rounded-xl p-3 focus:border-purple-500" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left text-white !text-white">
 
-    <button onclick="sendMsg()"
-      class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl">
-      Отправить
-    </button>
-  </div>
-</div>
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Contact Us</h5>
+        <ul class="space-y-2 text-white !text-white text-sm">
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-telephone text-white !text-white"></i> +7 (707) 607-33-25
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-envelope text-white !text-white"></i> thenewera@gmail.com
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-geo-alt text-white !text-white"></i> Kazakhstan, Almaty
+          </li>
+        </ul>
+      </div>
 
-<!-- FOOTER -->
-<footer class="bg-black text-white py-10 mt-20">
-  <div class="max-w-6xl mx-auto px-6">
-    <h4 class="text-xl font-semibold mb-3 text-center">UNICO-LAB</h4>
-    <p class="text-gray-400 text-center">Unico-Lab — твой навигатор в мире университетов.</p>
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">About Us</h5>
+        <p class="text-white !text-white text-sm leading-relaxed">
+          Uncollabi — образовательная экосистема, которая помогает абитуриентам находить подходящие университеты с помощью карты, аналитики и искусственного интеллекта.
+        </p>
+      </div>
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Socials</h5>
+        <div class="flex gap-4 justify-center md:justify-start text-3xl text-white !text-white">
+          <a href="#" class="bi bi-instagram text-white !text-white hover:opacity-70 transition"></a>
+          <a href="#" class="bi bi-telegram text-white !text-white hover:opacity-70 transition"></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10 pt-6 border-t border-purple-900/40 text-white !text-white">
+      <p class="text-white !text-white text-sm">© 2025 Uncollabi. All rights reserved.</p>
+    </div>
+
   </div>
 </footer>
 
-<!-- JS -->
-<script>
-// 👁️ FOLLOW MOUSE EYES
-const eyeL = document.getElementById("eye-left");
-const eyeR = document.getElementById("eye-right");
+  <script>
+  (function createStars() {
+    const starsDeep = document.getElementById('starsDeep');
+    const starsFront = document.getElementById('starsFront');
+    
+    if (!starsDeep || !starsFront) return;
+    
+    starsDeep.innerHTML = '';
+    starsFront.innerHTML = '';
+    
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      const sizeType = Math.random();
+      let className = 'star ';
+      
+      if (sizeType < 0.4) className += 'small';
+      else if (sizeType < 0.8) className += 'medium';
+      else className += 'large';
+      
+      star.className = className;
+      star.style.left = (Math.random() * 100) + '%';
+      star.style.top = (Math.random() * 100) + '%';
+      star.style.animationDelay = (Math.random() * 5) + 's';
+      star.style.animationDuration = (2 + Math.random() * 4) + 's';
+      starsDeep.appendChild(star);
+    }
+    
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      const sizeType = Math.random();
+      let className = 'star ';
+      
+      if (sizeType < 0.3) className += 'small';
+      else if (sizeType < 0.7) className += 'medium';
+      else className += 'large';
+      
+      star.className = className;
+      star.style.left = (Math.random() * 100) + '%';
+      star.style.top = (Math.random() * 100) + '%';
+      star.style.animationDelay = (Math.random() * 3) + 's';
+      star.style.animationDuration = (1 + Math.random() * 2) + 's';
+      star.style.opacity = (0.4 + Math.random() * 0.6).toString();
+      starsFront.appendChild(star);
+    }
+    
+    function handleResize() {
+      const w = window.innerWidth;
+      if (w < 600) {
+       const deepStars = starsDeep.children;
+        const frontStars = starsFront.children;
+        
+        while (deepStars.length > 40) {
+          starsDeep.removeChild(deepStars[deepStars.length - 1]);
+        }
+        
+        while (frontStars.length > 50) {
+          starsFront.removeChild(frontStars[frontStars.length - 1]);
+        }
+      }
+    }
+    
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  })();
+  </script>
 
-document.addEventListener("mousemove", (e) => {
-  const { clientX, clientY } = e;
-  const offsetX = (clientX - window.innerWidth / 2) / 80;
-  const offsetY = (clientY - window.innerHeight / 2) / 80;
-
-  eyeL.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-  eyeR.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-});
-
-// 💬 SEND MESSAGE
-async function sendMsg() {
-  const input = document.getElementById("user-input");
-  const text = input.value.trim();
-  if (!text) return;
-
-  appendMsg("Ты", text);
-  input.value = "";
-
-  try {
-    const res = await fetch("http://localhost:3000/ask", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        question: text,
-        embedding: [] // если RAG нет — пока можно пусто
-      })
+  <script>
+  const bigEyes = document.querySelectorAll('.walle-eye-large');
+  
+  document.addEventListener('mousemove', (e) => {
+    bigEyes.forEach(eye => {
+      const rect = eye.getBoundingClientRect();
+      const eyeX = rect.left + rect.width / 2;
+      const eyeY = rect.top + rect.height / 2;
+      
+      const deltaX = e.clientX - eyeX;
+      const deltaY = e.clientY - eyeY;
+      const angle = Math.atan2(deltaY, deltaX);
+      
+      const distance = Math.min(8, Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 50);
+      const moveX = Math.cos(angle) * distance;
+      const moveY = Math.sin(angle) * distance;
+      
+      const pupil = eye.querySelector('::after') || eye;
+      eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
+  });
 
-    const data = await res.json();
-    appendMsg("🤖", data.answer);
+  const walleCursor = document.getElementById('walleCursor');
+  let lastTrackTime = 0;
+  const trackInterval = 80; 
 
-  } catch (err) {
-    appendMsg("🤖", "Ошибка соединения с сервером 😢");
+  document.addEventListener('mousemove', (e) => {
+    walleCursor.style.left = e.clientX + 'px';
+    walleCursor.style.top = e.clientY + 'px';
+    
+    const now = Date.now();
+    if (now - lastTrackTime > trackInterval) {
+      createWalleTrack(e.clientX, e.clientY);
+      lastTrackTime = now;
+    }
+  });
+
+  function createWalleTrack(x, y) {
+    const track = document.createElement('div');
+    track.className = 'walle-track';
+    
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 10 + 20;
+    
+    track.style.left = (x + offsetX) + 'px';
+    track.style.top = (y + offsetY) + 'px';
+    
+    const size = 0.8 + Math.random() * 0.4;
+    track.style.transform = `translate(-50%, -50%) scale(${size}) rotate(${(Math.random() - 0.5) * 20}deg)`;
+    
+    document.body.appendChild(track);
+    
+    setTimeout(() => {
+      if (track.parentNode) {
+        track.parentNode.removeChild(track);
+      }
+    }, 1500);
   }
-}
 
-// 🚀 ADD TO CHAT BOX
-function appendMsg(sender, msg) {
-  const box = document.getElementById("chat-box");
-  const div = document.createElement("div");
-  div.className = "my-2";
+  setInterval(() => {
+    const eyes = document.querySelectorAll('.walle-cursor .walle-eye');
+    eyes.forEach(eye => {
+      eye.style.height = '2px';
+      setTimeout(() => {
+        eye.style.height = '10px';
+      }, 150);
+    });
+  }, 3000);
 
-  div.innerHTML = `<b>${sender}:</b> ${msg}`;
-  box.appendChild(div);
-  box.scrollTop = box.scrollHeight;
-}
-</script>
+
+  async function sendMsg() {
+    const input = document.getElementById('user-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMsg('user', text);
+    input.value = '';
+
+    const typingId = appendTyping();
+
+    try {
+      const res = await fetch('http://localhost:3000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: text,
+          embedding: []
+        })
+      });
+
+      const data = await res.json();
+      removeTyping(typingId);
+      appendMsg('bot', data.answer);
+
+    } catch (err) {
+      removeTyping(typingId);
+      appendMsg('bot', 'Ошибка соединения с сервером 😢 Проверьте подключение.');
+    }
+  }
+
+  function quickQuestion(text) {
+    const input = document.getElementById('user-input');
+    input.value = text;
+    sendMsg();
+  }
+
+  function appendMsg(sender, msg) {
+    const box = document.getElementById('chat-box');
+    const div = document.createElement('div');
+    div.className = 'flex ' + (sender === 'user' ? 'justify-end' : '');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = sender === 'user' ? 'message-user' : 'message-bot';
+    
+    if (sender === 'bot') {
+      messageDiv.innerHTML = `<div class="font-semibold mb-1" style="font-family: 'Orbitron', sans-serif;">🤖 Валли</div><div>${msg}</div>`;
+    } else {
+      messageDiv.innerHTML = `<div class="font-semibold mb-1">Ты</div><div>${msg}</div>`;
+    }
+    
+    div.appendChild(messageDiv);
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function appendTyping() {
+    const box = document.getElementById('chat-box');
+    const id = 'typing-' + Date.now();
+    const div = document.createElement('div');
+    div.id = id;
+    div.className = 'flex';
+    div.innerHTML = `
+      <div class="message-bot">
+        <div class="font-semibold mb-1" style="font-family: 'Orbitron', sans-serif;">🤖 Валли</div>
+        <div class="typing-indicator"><span></span><span></span><span></span></div>
+      </div>
+    `;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return id;
+  }
+
+  function removeTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+  </script>
 
 </body>
 </html>

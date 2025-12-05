@@ -1,113 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <title>The NEW ERA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Uncollabi - Информация о университете</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:wght@300;400;500;600;700&display=swap');
+  </style>
 </head>
 
 <body>
-
-<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+<header class="unicolab-header fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/50 to-transparent backdrop-blur-xl border-b border-purple-800/40 shadow-[0_0_35px_rgba(138,43,226,0.35)]">
   <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-    <a href="uni-map.html"><div>UNICO-LAB</div></a>
 
-    <nav class="hidden lg:flex gap-6 text-sm font-medium">
-      <a href="uni-map.html" class="hover:text-purple-500">КАРТА</a>
-      <a href="ai-chat.html" class="hover:text-purple-500">ПОДДЕРЖКА</a>
-      
+    <a href="uni-main.html">
+      <div class="gradient-text text-2xl font-bold" style="font-family: 'Orbitron', sans-serif;">
+        Uncollabi
+      </div>
+    </a>
+
+    <div class="relative group flex items-center gap-4 lg:hidden">
+      <input type="checkbox" id="menu-toggle" class="peer hidden" />
+      <label for="menu-toggle" class="flex flex-col gap-1 cursor-pointer z-50">
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+        <span class="w-7 h-0.5 bg-white transition-all"></span>
+      </label>
+
+      <div class="absolute left-0 top-full invisible opacity-0 peer-checked:visible peer-checked:opacity-100 transition-all duration-300
+                  bg-gradient-to-br from-[#0f0f2e] to-[#240042] backdrop-blur-xl shadow-xl rounded-xl
+                  border border-purple-700/40 text-white py-3 w-52 z-40 mt-2 overflow-hidden">
+
+        <a href="uni-main.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Главная</a>
+        <a href="uni-map.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">Университеты</a>
+        <a href="ai-chat.html" class="block px-5 py-2 hover:bg-purple-900/40 transition">AI-ассистент</a>
+      </div>
+    </div>
+
+    <nav class="hidden lg:flex items-center gap-10 text-white text-sm font-medium">
+      <a href="uni-main.html" class="hover:text-purple-300 transition">Главная</a>
+      <a href="uni-map.html" class="hover:text-purple-300 transition">Университеты</a>
+      <a href="ai-chat.html" class="hover:text-purple-300 transition">AI-ассистент</a>
     </nav>
   </div>
 </header>
 
-<div class="cardofuni-wrapper mt-28" id="topper"></div>
+  <div class="cardofuni-wrapper mt-28 relative z-10" id="topper">
+  </div>
 
-<footer class="bg-black text-white py-10 mt-20">
-  <div class="max-w-6xl mx-auto px-6">
-    <h4 class="text-xl font-semibold mb-3 text-center">UNICO-LAB</h4>
-    <p class="text-gray-400 text-center">Unico-Lab — твой навигатор в мире университетов.</p>
+ <footer class="py-12 mt-20 relative z-10 bg-black/40 backdrop-blur-xl border-t border-purple-500/40 text-white !text-white">
+  <div class="max-w-7xl mx-auto px-6 text-white !text-white">
+
+    <div class="text-center mb-10 text-white !text-white">
+      <h4 class="text-3xl font-bold text-white !text-white" style="font-family: 'Orbitron', sans-serif;">
+        Uncollabi
+      </h4>
+      <p class="text-white !text-white text-lg mt-2">Твой навигатор в мире университетов 🌌</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left text-white !text-white">
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Contact Us</h5>
+        <ul class="space-y-2 text-white !text-white text-sm">
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-telephone text-white !text-white"></i> +7 (707) 607-33-25
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-envelope text-white !text-white"></i> thenewera@gmail.com
+          </li>
+          <li class="flex items-center gap-2 justify-center md:justify-start text-white !text-white">
+            <i class="bi bi-geo-alt text-white !text-white"></i> Kazakhstan, Almaty
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">About Us</h5>
+        <p class="text-white !text-white text-sm leading-relaxed">
+          Uncollabi — образовательная экосистема, которая помогает абитуриентам находить подходящие университеты с помощью карты, аналитики и искусственного интеллекта.
+        </p>
+      </div>
+
+      <div class="text-white !text-white">
+        <h5 class="text-xl font-semibold mb-3 text-white !text-white">Socials</h5>
+        <div class="flex gap-4 justify-center md:justify-start text-3xl text-white !text-white">
+          <a href="#" class="bi bi-instagram text-white !text-white hover:opacity-70 transition"></a>
+          <a href="#" class="bi bi-telegram text-white !text-white hover:opacity-70 transition"></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10 pt-6 border-t border-purple-900/40 text-white !text-white">
+      <p class="text-white !text-white text-sm">© 2025 Uncollabi. All rights reserved.</p>
+    </div>
+
   </div>
 </footer>
 
-<script>
-const API_URL_uni = "http://localhost:3000/universities";
 
-async function loadUniversityInfo() {
-    const uniName = new URLSearchParams(window.location.search).get("name");
-    if (!uniName) {
-      return;
-    }
-    const res = await fetch(API_URL_uni);
-    const data = await res.json();
-    const uni = data.find(u => u.name === uniName);
-    if (!uni) {
-      return;
-    }
-    document.getElementById("topper").innerHTML = `
-    
-      <div class="cardofuni-header">
-        <div class="cardofuni-header-left">
-          <h2 class="cardofuni-title">${uni.name}</h2>
-          <p class="cardofuni-location">${uni.region ?? uni.city}, Казахстан</p>
+  <script>
+    const API_URL_uni = "http://localhost:3000/universities";
 
-          <a href="ai-chat.html" target="_blank" class="cardofuni-btn">
-            Узнать подробнее
-          </a>
-        </div>
+    async function loadUniversityInfo() {
+      const uniName = new URLSearchParams(window.location.search).get("name");
+      if (!uniName) {
+        document.getElementById("topper").innerHTML = `
+          <div style="text-align:center; padding:60px 20px;">
+            <h2 style="color:#da70d6; font-size:28px; font-family:'Orbitron', sans-serif; margin-bottom:16px;">
+              🔍 Университет не найден
+            </h2>
+            <p style="color:#a78bfa; font-size:16px;">
+              Вернитесь на <a href="uni-map.html" style="color:#8a2be2; text-decoration:underline;">карту университетов</a>
+            </p>
+          </div>
+        `;
+        return;
+      }
 
-        <div class="cardofuni-header-right">
-          <img src="${uni.urlphoto}" class="cardofuni-img">
-        </div>
-      </div>
+      try {
+        const res = await fetch(API_URL_uni);
+        const data = await res.json();
+        const uni = data.find(u => u.name === uniName);
+        
+        if (!uni) {
+          document.getElementById("topper").innerHTML = `
+            <div style="text-align:center; padding:60px 20px;">
+              <h2 style="color:#da70d6; font-size:28px; font-family:'Orbitron', sans-serif; margin-bottom:16px;">
+                🔍 Университет не найден
+              </h2>
+              <p style="color:#a78bfa; font-size:16px;">
+                Вернитесь на <a href="uni-map.html" style="color:#8a2be2; text-decoration:underline;">карту университетов</a>
+              </p>
+            </div>
+          `;
+          return;
+        }
 
-      <div class="cardofuni-content">
-        <div class="cardofuni-section">
-          <h3>О университете</h3>
-          <p><b>Миссия:</b> ${uni.about.mission}</p>
-          <p><b>История:</b> ${uni.about.history}</p>
-          <p><b>Достижения:</b> ${uni.about.achievements}</p>
-        </div>
+        document.getElementById("topper").innerHTML = `
+          <div class="cardofuni-header">
+            <div class="cardofuni-header-left">
+              <h2 class="cardofuni-title">${uni.name}</h2>
+              <p class="cardofuni-location">📍 ${uni.region ?? uni.city}, Казахстан</p>
 
-        <div class="cardofuni-section">
-          <h3>Учебные программы</h3>
+              <a href="ai-chat.html" target="_blank" class="cardofuni-btn">
+                💬 Узнать подробнее у Валли
+              </a>
+            </div>
 
-          ${
-            uni.academic_programs
-              .map(p => `
-                <div class="cardofuni-program">
-                  <h4>${p.program_name}</h4>
-                  <ul>
-                    ${p.directions.map(d => `<li>${d}</li>`).join("")}
+            <div class="cardofuni-header-right">
+              <img src="${uni.urlphoto}" class="cardofuni-img" alt="${uni.name}">
+            </div>
+          </div>
+
+          <div class="cardofuni-content">
+            <div class="cardofuni-section">
+              <h3>🎯 О университете</h3>
+              <div style="background: rgba(51, 65, 85, 0.4); padding: 16px; border-radius: 12px; margin-top: 12px; border: 1px solid rgba(138, 43, 226, 0.3);">
+                <p style="margin-bottom:12px;"><b style="color:#da70d6;">Миссия:</b> ${uni.about.mission}</p>
+                <p style="margin-bottom:12px;"><b style="color:#da70d6;">История:</b> ${uni.about.history}</p>
+                <p><b style="color:#da70d6;">Достижения:</b> ${uni.about.achievements}</p>
+              </div>
+            </div>
+
+            <div class="cardofuni-section">
+              <h3>📚 Учебные программы</h3>
+              ${uni.academic_programs.map(p => `
+                <div class="cardofuni-program" style="background: rgba(51, 65, 85, 0.4); padding: 16px; border-radius: 12px; margin-top: 12px; border: 1px solid rgba(138, 43, 226, 0.3);">
+                  <h4 style="color:#a78bfa;">${p.program_name}</h4>
+                  <ul style="margin-top:8px; margin-left:20px; color:#e2e8f0;">
+                    ${p.directions.map(d => `<li style="margin-bottom:6px;">✨ ${d}</li>`).join("")}
                   </ul>
                 </div>
-              `)
-              .join("")
-          }
-        </div>
+              `).join("")}
+            </div>
 
-        <div class="cardofuni-section">
-          <h3>Требования для поступления</h3>
-          <ul>
-            ${uni.admission_requirements.documents.map(doc => `<li>${doc}</li>`).join("")}
-          </ul>
-          <p><b>Экзамены:</b> ${uni.admission_requirements.exams}</p>
-          <p><b>Стипендии:</b> ${uni.admission_requirements.scholarships}</p>
-        </div>
+            <div class="cardofuni-section">
+              <h3>📝 Требования для поступления</h3>
+              <div style="background: rgba(51, 65, 85, 0.4); padding: 16px; border-radius: 12px; margin-top: 12px; border: 1px solid rgba(138, 43, 226, 0.3);">
+                <p style="margin-bottom:12px; color:#da70d6; font-weight:600;">Необходимые документы:</p>
+                <ul style="margin-left:20px; color:#e2e8f0; margin-bottom:16px;">
+                  ${uni.admission_requirements.documents.map(doc => `<li style="margin-bottom:6px;">📄 ${doc}</li>`).join("")}
+                </ul>
+                <p style="margin-bottom:8px;"><b style="color:#da70d6;">Экзамены:</b> ${uni.admission_requirements.exams}</p>
+                <p><b style="color:#da70d6;">Стипендии:</b> ${uni.admission_requirements.scholarships}</p>
+              </div>
+            </div>
 
-        <div class="cardofuni-section">
-          <h3>Цена обучения год</h3>
-          <p>${uni.price.tuition_per_year_usd}<b> USD</b></p>
-        </div>
-      </div>
-    `;
-}
+            <div class="cardofuni-section">
+              <h3>💰 Стоимость обучения</h3>
+              <div style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3)); padding: 24px; border-radius: 16px; margin-top: 12px; border: 2px solid rgba(138, 43, 226, 0.5); text-align:center;">
+                <p style="font-size:36px; font-weight:800; color:#ffffff; font-family:'Orbitron', sans-serif; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">
+                  ${uni.price.tuition_per_year_usd} <span style="font-size:24px;">USD</span>
+                </p>
+                <p style="color:#a78bfa; margin-top:8px; font-size:14px;">в год</p>
+              </div>
+            </div>
 
-loadUniversityInfo();
+            <div style="text-align:center; margin-top:32px;">
+              <a href="uni-map.html" class="cardofuni-btn" style="display:inline-block;">
+                ← Вернуться к карте
+              </a>
+              <a href="ai-chat.html" class="cardofuni-btn" style="display:inline-block; margin-left:12px;">
+                💬 Задать вопрос Валли
+              </a>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error("Ошибка загрузки:", err);
+        document.getElementById("topper").innerHTML = `
+          <div style="text-align:center; padding:60px 20px;">
+            <h2 style="color:#da70d6; font-size:28px; font-family:'Orbitron', sans-serif; margin-bottom:16px;">
+              ⚠️ Ошибка загрузки данных
+            </h2>
+            <p style="color:#a78bfa; font-size:16px;">
+              Проверьте подключение к серверу
+            </p>
+          </div>
+        `;
+      }
+    }
 
-</script>
-
+    loadUniversityInfo();
+  </script>
 </body>
 </html>
