@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>The NEW ERA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+    <a href="uni-map.html"><div>UNICO-LAB</div></a>
+
+    <nav class="hidden lg:flex gap-6 text-sm font-medium">
+      <a href="uni-map.html" class="hover:text-purple-500">КАРТА</a>
+      <a href="ai-chat.html" class="hover:text-purple-500">ПОДДЕРЖКА</a>
+      
+    </nav>
+  </div>
+</header>
+
+<div class="cardofuni-wrapper mt-28" id="topper"></div>
+
+<footer class="bg-black text-white py-10 mt-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <h4 class="text-xl font-semibold mb-3 text-center">UNICO-LAB</h4>
+    <p class="text-gray-400 text-center">Unico-Lab — твой навигатор в мире университетов.</p>
+  </div>
+</footer>
+
+<script>
+const API_URL_uni = "http://localhost:3000/universities";
+
+async function loadUniversityInfo() {
+    const uniName = new URLSearchParams(window.location.search).get("name");
+    if (!uniName) {
+      return;
+    }
+    const res = await fetch(API_URL_uni);
+    const data = await res.json();
+    const uni = data.find(u => u.name === uniName);
+    if (!uni) {
+      return;
+    }
+    document.getElementById("topper").innerHTML = `
+    
+      <div class="cardofuni-header">
+        <div class="cardofuni-header-left">
+          <h2 class="cardofuni-title">${uni.name}</h2>
+          <p class="cardofuni-location">${uni.region ?? uni.city}, Казахстан</p>
+
+          <a href="ai-chat.html" target="_blank" class="cardofuni-btn">
+            Узнать подробнее
+          </a>
+        </div>
+
+        <div class="cardofuni-header-right">
+          <img src="${uni.urlphoto}" class="cardofuni-img">
+        </div>
+      </div>
+
+      <div class="cardofuni-content">
+        <div class="cardofuni-section">
+          <h3>О университете</h3>
+          <p><b>Миссия:</b> ${uni.about.mission}</p>
+          <p><b>История:</b> ${uni.about.history}</p>
+          <p><b>Достижения:</b> ${uni.about.achievements}</p>
+        </div>
+
+        <div class="cardofuni-section">
+          <h3>Учебные программы</h3>
+
+          ${
+            uni.academic_programs
+              .map(p => `
+                <div class="cardofuni-program">
+                  <h4>${p.program_name}</h4>
+                  <ul>
+                    ${p.directions.map(d => `<li>${d}</li>`).join("")}
+                  </ul>
+                </div>
+              `)
+              .join("")
+          }
+        </div>
+
+        <div class="cardofuni-section">
+          <h3>Требования для поступления</h3>
+          <ul>
+            ${uni.admission_requirements.documents.map(doc => `<li>${doc}</li>`).join("")}
+          </ul>
+          <p><b>Экзамены:</b> ${uni.admission_requirements.exams}</p>
+          <p><b>Стипендии:</b> ${uni.admission_requirements.scholarships}</p>
+        </div>
+
+        <div class="cardofuni-section">
+          <h3>Цена обучения год</h3>
+          <p>${uni.price.tuition_per_year_usd}<b> USD</b></p>
+        </div>
+      </div>
+    `;
+}
+
+loadUniversityInfo();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>The NEW ERA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+      <a href="uni-map.html">
+        <div>UNICO-LAB</div>
+      </a>
+      <div class="relative group flex items-center gap-4 lg:hidden -order-2">
+        <input type="checkbox" id="menu-toggle" class="peer hidden" />
+        <label for="menu-toggle" class="flex flex-col gap-1 hover:text-purple-500">
+          <span class="w-4 h-0.5 bg-black"></span>
+          <span class="w-4 h-0.5 bg-black"></span>
+          <span class="w-4 h-0.5 bg-black"></span>
+        </label>
+        <div
+          class="absolute left-0 top-full invisible opacity-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 bg-white shadow-md text-gray-800 py-1 w-44 z-50">
+          <a href="uni-map.html" class="px-4 py-2 hover:bg-purple-100 hover:text-purple-500 block">КАРТА</a>
+          <a href="ai-chat.html" class="px-4 py-2 hover:bg-purple-100 hover:text-purple-500 block">ПОДДЕРЖКА</a>
+        </div>
+      </div>
+      <nav class="hidden md:hidden lg:flex items-center gap-6 text-sm font-medium">
+        <a href="uni-map.html" class="hover:text-purple-500">КАРТА</a>
+        <a href="ai-chat.html" class="hover:text-purple-500">ПОДДЕРЖКА</a>
+      </nav>
+      </div>
+    </div>
+  </header>
+<h2>Интерактивная карта Казахстана</h2>
+<section class="map-and-list">
+    
+    <div class="map-container">
+        <div id="map"></div>
+        <div class="info-box" id="info">Наведите на область…</div>
+    </div>
+    <div class="universities-block">
+
+  <div class="uni-list" id="listSecti">
+  </div>
+
+
+</section>
+
+<section class="cardofuni-list-section max-w-7xl mx-auto px-4 py-6 pt-25 flex justify-center">
+  <div class="container">
+    <h3 class="cardofuni-grid-title">Университеты региона</h3>
+    <div id="cardofuni-grid" class="cardofuni-grid">
+    </div>
+  </div>
+</section>
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <footer class="bg-black text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div>
+        <h4 class="text-xl font-semibold mb-3 text-center lg:text-left">
+          UNICO-LAB
+        </h4>
+        <p class="text-gray-400 text-center lg:text-left mb-5">
+          Unico-Lab — твой навигатор в мире университетов.
+        </p>
+      </div>
+      <div>
+        <input type="checkbox" id="contacts" class="peer hidden">
+        <label for="contacts" class="flex justify-between items-center cursor-pointer select-none">
+          <span class="font-semibold text-lg">Контакты</span>
+          <span class="text-xl text-purple-400">
+            +
+          </span>
+        </label>
+        <div class="max-h-0 overflow-hidden peer-checked:max-h-[1000px] transition-all duration-500">
+          <div class="flex items-start gap-2 text-sm text-gray-400 mt-3">
+            <i class="bi bi-geo-alt text-purple-400 text-lg"></i>
+            <div>
+              <p class="font-semibold text-white">НАШИ ДАННЫЕ:</p>
+              <p>Компания: ТОО The NEW ERA<br>БИН (ИИН): 001122333444</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2 text-sm text-gray-400 mt-3">
+            <i class="bi bi-telephone text-purple-400 text-lg"></i>
+            <div>
+              <a href="tel:+77076073325" class="hover:text-purple-400">+7(707)607-33-25</a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2 text-sm text-gray-400 mt-3">
+            <i class="bi bi-envelope text-purple-400 text-lg mt-1"></i>
+            <div>
+              <p class="">Email:</p>
+              <a href="mailto:thenewera@gmail.com" class="hover:text-purple-400">thenewera@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2 text-sm text-gray-400 mt-3">
+            <div class="text-xl flex gap-2">
+              <a href="#" class="bi bi-instagram hover:text-purple-400"></a>
+              <a href="#" class="bi bi-telegram hover:text-purple-400"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+
+<script>
+const API_URL = "http://localhost:3000/universities";
+
+let universities = []; 
+
+const gridId = "cardofuni-grid";
+const programsBarId = "programs-bar";     
+const directionsBarId = "directions-bar";  
+
+function renderProgramsBar(container) {
+  container.innerHTML = `
+    <div class="program-buttons" style="display:flex;gap:8px;margin-bottom:12px;">
+      <button data-program="Бакалавриат" class="program-btn px-3 py-2 rounded bg-blue-600 text-white">Бакалавриат</button>
+      <button data-program="Магистратура" class="program-btn px-3 py-2 rounded bg-blue-600 text-white">Магистратура</button>
+      <button data-program="Докторантура" class="program-btn px-3 py-2 rounded bg-blue-600 text-white">Докторантура</button>
+      <button data-program="__all__" class="program-btn px-3 py-2 rounded bg-gray-200">Показать все</button>
+    </div>
+    <div id="${directionsBarId}" style="margin-bottom:14px; display:flex; gap:8px; flex-wrap:wrap;"></div>
+  `;
+
+  const caption = document.createElement('div');
+  caption.style.fontSize = '13px';
+  caption.style.color = '#374151';
+  caption.style.marginBottom = '8px';
+  caption.innerText = 'Выберите программу, затем направление:';
+  container.prepend(caption);
+}
+
+function renderDirections(directions, activeDirection=null) {
+  const bar = document.getElementById(directionsBarId);
+  if(!bar) return;
+
+  let html = `<button data-direction="__all__" class="dir-chip px-3 py-1 rounded-md border">Все направления</button>`;
+  directions.forEach(dir => {
+    html += `<button data-direction="${escapeHtml(dir)}" class="dir-chip px-3 py-1 rounded-md border bg-white">${escapeHtml(dir)}</button>`;
+  });
+  bar.innerHTML = html;
+
+  bar.querySelectorAll('.dir-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+    
+      bar.querySelectorAll('.dir-chip').forEach(b => b.classList.remove('bg-blue-600','text-white'));
+      btn.classList.add('bg-blue-600','text-white');
+      const dir = btn.dataset.direction;
+    
+      if (dir === "__all__") renderGrid(universities); 
+      else renderGrid(filterBySelectedDirection(currentProgram, dir));
+    });
+  });
+
+  const allBtn = bar.querySelector('[data-direction="__all__"]');
+  if (allBtn) { allBtn.classList.add('bg-blue-600','text-white'); }
+}
+
+function escapeHtml(s){ return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderGrid(list) {
+  const grid = document.getElementById(gridId);
+  if(!grid) return;
+  grid.innerHTML = "";
+  if(!list || list.length === 0){
+    grid.innerHTML = `<p style="color:#6b7280">Университеты не найдены.</p>`;
+    return;
+  }
+  list.forEach(u => {
+    const img = u.urlphoto ? u.urlphoto : 'https://via.placeholder.com/400x240?text=NO+IMAGE';
+    const item = document.createElement('article');
+    item.className = "cardofuni-item";
+    item.innerHTML = `
+      <div class="cardofuni-thumb">
+        <img src="${img}" alt="${escapeHtml(u.name)}">
+      </div>
+      <div class="cardofuni-body">
+        <h4 class="cardofuni-name">${escapeHtml(u.name)}</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;font-size:13px;color:#6b7280">
+          <span>${escapeHtml(u.region || u.city || '')}</span>
+        </div>
+        <div class="cardofuni-actions" style="margin-top:10px">
+          <a href="uni-info.html?name=${encodeURIComponent(u.name)}" class="cardofuni-btn">Подробнее</a>
+        </div>
+      </div>
+    `;
+    grid.appendChild(item);
+  });
+}
+
+function collectDirectionsForProgram(programName) {
+  const set = new Set();
+  universities.forEach(u => {
+    const ap = u.academic_programs;
+    if (!Array.isArray(ap)) return;
+    ap.forEach(p => {
+      if (p.program_name === programName && Array.isArray(p.directions)) {
+        p.directions.forEach(d => set.add(d));
+      }
+    });
+  });
+  return Array.from(set).sort((a,b)=> a.localeCompare(b,'ru'));
+}
+
+function filterBySelectedDirection(programName, direction) {
+  if (!programName || programName === "__all__") return universities;
+  return universities.filter(u => {
+    if (!Array.isArray(u.academic_programs)) return false;
+    return u.academic_programs.some(p => {
+      if (p.program_name !== programName) return false;
+      if (!Array.isArray(p.directions)) return false;
+      return p.directions.includes(direction);
+    });
+  });
+}
+
+let currentProgram = "__all__";
+
+function initProgramsUI() {
+  let programsBar = document.getElementById(programsBarId);
+  if (!programsBar) {
+    programsBar = document.createElement('div');
+    programsBar.id = programsBarId;
+    const container = document.querySelector('.cardofuni-list-section .container') || document.querySelector('.container') || document.getElementById(gridId).parentElement;
+    if (container) container.insertBefore(programsBar, container.firstChild);
+  }
+  renderProgramsBar(programsBar);
+
+  programsBar.querySelectorAll('.program-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      programsBar.querySelectorAll('.program-btn').forEach(b=>b.classList.remove('bg-gray-200'));
+      btn.classList.remove('bg-gray-200');
+      programsBar.querySelectorAll('.program-btn').forEach(b=>{
+        if (!b.classList.contains('bg-blue-600') && b.dataset.program !== '__all__') {
+        }
+      });
+
+      currentProgram = btn.dataset.program || "__all__";
+
+      if (currentProgram === "__all__") {
+        const bar = document.getElementById(directionsBarId);
+        if (bar) bar.innerHTML = '';
+        renderGrid(universities);
+        return;
+      }
+
+      const directions = collectDirectionsForProgram(currentProgram);
+
+      renderDirections(directions);
+
+      const filtered = universities.filter(u => Array.isArray(u.academic_programs) && u.academic_programs.some(p => p.program_name === currentProgram));
+      renderGrid(filtered);
+    });
+  });
+}
+
+async function init() {
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error(res.statusText);
+    universities = await res.json();
+  } catch (err) {
+    console.error("Ошибка загрузки университетов:", err);
+    universities = [];
+  }
+
+  initProgramsUI();
+
+  renderGrid(universities);
+
+}
+
+init();
+</script>
+
+
+
+
+</body>
+
+</html>

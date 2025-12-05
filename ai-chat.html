@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>The NEW ERA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-100">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+    <a href="uni-map.html"><div>UNICO-LAB</div></a>
+
+    <nav class="hidden lg:flex gap-6 text-sm font-medium">
+      <a href="uni-map.html" class="hover:text-purple-500">КАРТА</a>
+      <a href="ai-chat.html" class="hover:text-purple-500 text-purple-600">ПОДДЕРЖКА</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BODY -->
+<div class="pt-28 flex flex-col items-center">
+
+  <!-- WALL-E BOT -->
+  <div id="bot" class="relative w-48 h-48 mb-6 select-none">
+    <img src="C:\Users\karau\.vscode\Unicollabi\Wallii.png" class="w-full h-full absolute" />
+
+    <!-- EYES -->
+    <div class="absolute top-8 left-12 flex gap-4">
+      <div id="eye-left" class="w-6 h-6 bg-white rounded-full border border-black"></div>
+      <div id="eye-right" class="w-6 h-6 bg-white rounded-full border border-black"></div>
+    </div>
+  </div>
+
+  <!-- CHAT BOX -->
+  <div id="chat-box"
+    class="w-full max-w-lg h-[420px] overflow-y-auto p-4 border rounded-xl shadow-md bg-white">
+    <div class="text-gray-600 text-left">
+      🤖: Привет! Я твой ассистент-бот.  
+      Я помогу найти самый подходящий вуз специально для тебя 🎓  
+      Просто напиши свой вопрос!
+    </div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="w-full max-w-lg mt-4 flex gap-2">
+    <input id="user-input"
+      type="text"
+      placeholder="Например: сравни SDU и AITU"
+      class="flex-1 border rounded-xl p-3 focus:border-purple-500" />
+
+    <button onclick="sendMsg()"
+      class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl">
+      Отправить
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-black text-white py-10 mt-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <h4 class="text-xl font-semibold mb-3 text-center">UNICO-LAB</h4>
+    <p class="text-gray-400 text-center">Unico-Lab — твой навигатор в мире университетов.</p>
+  </div>
+</footer>
+
+<!-- JS -->
+<script>
+// 👁️ FOLLOW MOUSE EYES
+const eyeL = document.getElementById("eye-left");
+const eyeR = document.getElementById("eye-right");
+
+document.addEventListener("mousemove", (e) => {
+  const { clientX, clientY } = e;
+  const offsetX = (clientX - window.innerWidth / 2) / 80;
+  const offsetY = (clientY - window.innerHeight / 2) / 80;
+
+  eyeL.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  eyeR.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+});
+
+// 💬 SEND MESSAGE
+async function sendMsg() {
+  const input = document.getElementById("user-input");
+  const text = input.value.trim();
+  if (!text) return;
+
+  appendMsg("Ты", text);
+  input.value = "";
+
+  try {
+    const res = await fetch("http://localhost:3000/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        question: text,
+        embedding: [] // если RAG нет — пока можно пусто
+      })
+    });
+
+    const data = await res.json();
+    appendMsg("🤖", data.answer);
+
+  } catch (err) {
+    appendMsg("🤖", "Ошибка соединения с сервером 😢");
+  }
+}
+
+// 🚀 ADD TO CHAT BOX
+function appendMsg(sender, msg) {
+  const box = document.getElementById("chat-box");
+  const div = document.createElement("div");
+  div.className = "my-2";
+
+  div.innerHTML = `<b>${sender}:</b> ${msg}`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+</script>
+
+</body>
+</html>

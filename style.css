@@ -1,0 +1,204 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+  color: #111;
+  box-sizing: border-box;
+}
+
+.map-and-list {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.map-container {
+  flex: 1 1 65%;
+  min-width: 300px;
+  height: min(72vh, 800px);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  background: #fff;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.info-box {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.96);
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 160px;
+}
+
+.universities-block {
+  flex: 0 0 330px;
+  max-width: 38%;
+  min-width: 260px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+  height: min(72vh, 800px);
+  overflow: auto;
+}
+
+.ub-title {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.uni-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.uni-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.uni-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.uni-city {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+}
+.uni-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  max-width: 200px;
+  line-height: 1.2;
+}
+.uni-img {
+  width: 70px;
+  height: 55px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cardofuni-wrapper {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  font-family: Arial, sans-serif;
+}
+
+.cardofuni-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.cardofuni-header-left { flex: 1 1 40%; }
+.cardofuni-title { font-size: 28px; font-weight: 700; margin: 0 0 6px 0; }
+.cardofuni-location { font-size: 15px; color: #6b7280; margin-bottom: 16px; }
+
+.cardofuni-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.cardofuni-btn:hover { background: #1e4fc7; }
+
+.cardofuni-header-right { flex: 1 1 50%; }
+.cardofuni-img { width: 100%; height: 230px; object-fit: cover; border-radius: 12px; }
+
+.cardofuni-content { border-top: 1px solid #e5e7eb; padding-top: 20px; }
+.cardofuni-section { margin-bottom: 24px; }
+.cardofuni-section h3 { margin-bottom: 10px; font-size: 20px; font-weight: 700; }
+.cardofuni-program h4 { font-size: 16px; margin: 8px 0; font-weight: 700; }
+
+.cardofuni-list-section .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.cardofuni-grid-title { margin: 0 0 16px; font-size: 20px; font-weight: 700; color: #111827; }
+.cardofuni-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, 1fr); }
+.cardofuni-item { background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e6eef6;box-shadow:0 6px 18px rgba(16,24,40,0.04);display:flex;flex-direction:column;transition:transform .18s ease; }
+.cardofuni-item:hover { transform: translateY(-6px); box-shadow:0 12px 30px rgba(16,24,40,0.08); }
+.cardofuni-thumb img { display:block;width:100%;height:180px;object-fit:cover; }
+.cardofuni-body { padding:12px; display:flex; flex-direction:column; gap:10px; flex:1 1 auto; }
+.cardofuni-name { font-size:16px; font-weight:700; color:#0f172a; margin:0; line-height:1.2; min-height:44px; }
+.cardofuni-actions { margin-top:auto; display:flex; justify-content:flex-start; }
+.cardofuni-btn { padding:8px 12px; background:#2563eb; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px; }
+
+@media (max-width: 1024px) {
+  .cardofuni-grid { grid-template-columns: repeat(2, 1fr); }
+  .cardofuni-thumb img { height:160px; }
+  .map-and-list { max-width: 960px; gap:14px; padding:14px; }
+  .map-container { height: min(56vh,640px); }
+  .universities-block { height: min(56vh,640px); flex-basis: 320px; }
+}
+
+@media (max-width: 720px) {
+  .map-and-list { flex-direction: column; align-items: stretch; gap:12px; padding:12px; margin: 80px auto; }
+  .map-container { width:100%; height:52vh; min-height:360px; }
+  .universities-block { width:100%; height:auto; max-height:none; }
+  .info-box { left:12px; bottom:12px; right:auto; }
+  .cardofuni-grid { grid-template-columns: 1fr; }
+  .cardofuni-thumb img { height:180px; }
+}
+
+header {
+  position: fixed; 
+  z-index: 3000;  
+}
+
+.map-container,
+.leaflet-container,
+.leaflet-pane,
+.leaflet-tile-pane,
+.leaflet-shadow-pane,
+.leaflet-overlay-pane,
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-control-container {
+  z-index: 0 !important;
+}
+
+.info-box {
+  z-index: 1200; 
+}
+
+.leaflet-control {
+  z-index: 1100 !important;
+}
