@@ -1,50 +1,54 @@
 require('dotenv').config();
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
+
+const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
 async function askChatGPT(systemPrompt, userQuestion) {
   const apiKey = process.env.OPENAI_API_KEY;
-
   if (!apiKey) {
-    console.error("❌ Ошибка: Не найден OPENAI_API_KEY в файле .env");
-    return "Ошибка сервера: Отсутствует API ключ.";
+    console.error("❌ Ошибка: нет OPENAI_API_KEY в .env");
+    throw new Error("Server configuration error");
   }
 
+  const body = {
+    model: "gpt-4o",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userQuestion }
+    ],
+    temperature: 0.7,
+    max_tokens: 1000
+  };
+
+  const res = await fetch(OPENAI_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`
+    },
+    body: JSON.stringify(body),
+  });
+
+  const text = await res.text();
+  if (!res.ok) {
+    console.error("OpenAI API error", res.status, text);
+    throw new Error(`OpenAI API error ${res.status}`);
+  }
+
+  let data;
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o", 
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userQuestion }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.error) {
-      console.error("OpenAI Error:", data.error);
-      return `Ошибка OpenAI: ${data.error.message}`;
-    }
-
-    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-      console.error("OpenAI: неожиданный ответ:", data);
-      return "Ошибка: неожиданный ответ от OpenAI.";
-    }
-
-    return data.choices[0].message.content;
-
-  } catch (err) {
-    console.error("Ошибка сети или API:", err.message);
-    return "Произошла ошибка при связи с сервисом ИИ 😢";
+    data = JSON.parse(text);
+  } catch (e) {
+    console.error("Invalid JSON from OpenAI:", e, text);
+    throw new Error("Invalid response from AI service");
   }
+
+  if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+    console.error("Unexpected OpenAI response shape:", data);
+    throw new Error("Unexpected response from AI");
+  }
+
+  return data.choices[0].message.content;
 }
 
 module.exports = { askChatGPT };
